@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+  background-image: url('C:/Users/rohit/Pictures/wall.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  
+  background-size: cover
+}
+dl.faq button {
+  margin: 0;
+  padding: 0;
+  margin-top: 1em;
+  font-weight: bold;
+  font-size: 110%;
+  border: thin solid transparent;
+  background-color: transparent;
+  padding-left: 0.125em;
+}
+
+dl dd {
+  margin: 0;
+  padding: 0;
+  margin-left: 1.5em;
+}
+
+dl.faq .desc {
+  margin: 0;
+  padding: 0.5em;
+  font-size: 110%;
+  display: none;
+  background-color: #fffedb;
+}
+
+dl.faq button:hover,
+dl.faq button:focus {
+  background-color: #eee;
+}
+
+dl.faq button:focus {
+  border-color: #630;
+}
+
+dl.faq button:hover {
+  text-decoration: underline;
+}
+
+dl.faq button:active {
+  background-color: #bbb;
+}
+
+dl.faq button[aria-expanded="false"]::before {
+  content: url('../images/right-arrow-brown.png');
+  padding-right: 0.35em;
+}
+
+dl.faq button[aria-expanded="true"]::before {
+  content: url('../images/down-arrow-brown.png');
+  padding-right: 0.35em;
+}
+.contact {
+  padding: 50px;
+  text-align: center;
+  background-color: #474e5d;
+  color: white;
+}
+.navbar {
+  width: 100%;
+  background-color: #555;
+  overflow: auto;
+  float:right;
+}
+
+.navbar a {
+  float: right;
+  padding: 12px;
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.active {
+  background-color: #4CAF50;
+}
+
+@media screen and (max-width: 500px) {
+  .navbar a {
+    float: right;
+    display: block;
+  }
+}
+</style>
+<body>
+<div class="navbar">
+  <a href="login.html"><i class="fa fa-fw fa-sign-in"></i> Login</a>
+  <a href="registration.html"><i class="fa fa-fw fa-user-plus"></i> Sign Up</a>
+  <a class="active" href="#"><i class="fa fa-newspaper-o"></i> FAQ</a> 
+  <a href="about.html"><i class="fa fa-fw fa-user"></i> About</a>
+  <a href="contact_us.html"><i class="fa fa-fw fa-envelope"></i> Contact Us</a> 
+  
+  <a href="first.html"><i class="fa fa-fw fa-home"></i> Home</a> 
+  
+  
+</div>
+<div class="contact">
+  <h1>FREQUENTLY ASKED QUESTIONS</h1>
+  
+</div>
+<dl class="faq">
+  <dt>
+    <button aria-expanded="false" aria-controls="faq1_desc">
+      What is ChildBook?
+    </button>
+  </dt>
+  <dd>
+    <p id="faq1_desc" class="desc">
+      ChildBook is a platform where students can learn through collaboration,post videos or useful information with other friends,participate in online activities
+      such as Quizzes,Debates,Role Plays....
+    </p>
+  </dd>
+  <dt>
+    <button aria-expanded="false" aria-controls="faq2_desc">
+      How can I start using ChildBook?
+    </button>
+  </dt>
+  <dd>
+    <p id="faq2_desc" class="desc">
+      Simple! Just head over to browser and go to www.ChildBook.com and get into. 
+      If you’re a new user, create an account to get started. If you already have a ChildBook Account, 
+      just log in with the same information as always.
+    </p>
+  </dd>
+  <dt>
+    <button aria-expanded="false" aria-controls="faq3_desc">
+      Is ChildBook Free?
+    </button>
+  </dt>
+  <dd>
+    <p id="faq3_desc" class="desc">
+     Yes,it is free of cost.No subscription!!!
+    </p>
+  </dd>
+  <dt>
+    <button aria-expanded="false" aria-controls="faq4_desc">
+      How can I post the videos and images and share with others?
+    </button>
+  </dt>
+  <dd>
+    <p id="faq4_desc" class="desc">
+      There is an option Photos/Videos at the top of the screen.By clicking on that,upload the image/video from your device and share with the friends.
+    </p>
+  </dd>
+</dl>
+<script>
+var ButtonExpand = function (domNode) {
+
+  this.domNode = domNode;
+
+  this.keyCode = Object.freeze({
+    'RETURN': 13
+  });
+};
+
+ButtonExpand.prototype.init = function () {
+
+  this.controlledNode = false;
+
+  var id = this.domNode.getAttribute('aria-controls');
+
+  if (id) {
+    this.controlledNode = document.getElementById(id);
+  }
+
+  this.domNode.setAttribute('aria-expanded', 'false');
+  this.hideContent();
+
+  this.domNode.addEventListener('keydown',    this.handleKeydown.bind(this));
+  this.domNode.addEventListener('click',      this.handleClick.bind(this));
+  this.domNode.addEventListener('focus',      this.handleFocus.bind(this));
+  this.domNode.addEventListener('blur',       this.handleBlur.bind(this));
+
+};
+
+ButtonExpand.prototype.showContent = function () {
+
+  if (this.controlledNode) {
+    this.controlledNode.style.display = 'block';
+  }
+
+};
+
+ButtonExpand.prototype.hideContent = function () {
+
+  if (this.controlledNode) {
+    this.controlledNode.style.display = 'none';
+  }
+
+};
+
+ButtonExpand.prototype.toggleExpand = function () {
+
+  if (this.domNode.getAttribute('aria-expanded') === 'true') {
+    this.domNode.setAttribute('aria-expanded', 'false');
+    this.hideContent();
+  }
+  else {
+    this.domNode.setAttribute('aria-expanded', 'true');
+    this.showContent();
+  }
+
+};
+
+/* EVENT HANDLERS */
+
+ButtonExpand.prototype.handleKeydown = function (event) {
+
+  console.log('[keydown]');
+
+  switch (event.keyCode) {
+
+    case this.keyCode.RETURN:
+
+      this.toggleExpand();
+
+      event.stopPropagation();
+      event.preventDefault();
+      break;
+
+    default:
+      break;
+  }
+
+};
+
+ButtonExpand.prototype.handleClick = function (event) {
+  this.toggleExpand();
+};
+
+ButtonExpand.prototype.handleFocus = function (event) {
+  this.domNode.classList.add('focus');
+};
+
+ButtonExpand.prototype.handleBlur = function (event) {
+  this.domNode.classList.remove('focus');
+};
+
+/* Initialize Hide/Show Buttons */
+
+window.addEventListener('load', function (event) {
+
+  var buttons =  document.querySelectorAll('button[aria-expanded][aria-controls]');
+
+  for (var i = 0; i < buttons.length; i++) {
+    var be = new ButtonExpand(buttons[i]);
+    be.init();
+  }
+
+}, false);
+</script>
+</body>
+</html>
